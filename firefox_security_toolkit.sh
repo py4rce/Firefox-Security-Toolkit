@@ -3,68 +3,68 @@
 ## Firefox Security Toolkit
 ## Description:
 # This script automatically transform Firefox Browser to a penetration testing suite.
-# The script mainly focuses on downloading the required add-ons for web-application penetration testing.
+# The script mainly focuses on downloading the required and useful add-ons for web-application penetration testing.
+# You can decide where you want to install an addon or not directly on firefox
 ## Version:
-# v0.7
+# v0.1
 ## Homepage:
-# https://github.com/mazen160/Firefox-Security-Toolkit
-## Author:
-# Mazin Ahmed <mazin AT mazinahmed DOT net>
+# https://github.com/py4rce/Firefox-Security-Toolkit
+## Inspired by:
+#  https://github.com/SpeksForks/Firefox-Security-Toolkit
 ################################################################################
-
+RED='\033[0;31m'
+ORANGE='\033[0;33m'
+NC='\033[0m' # No Color
 
 logo() {
-echo '    ______ _              ____                _____                           _  __            ______               __ __ __  _  __ '
+echo -e '    ______ _              ____                _____                           _  __            ______               __ __ __  _  __ '
 echo '   / ____/(_)_____ ___   / __/____   _  __   / ___/ ___   _____ __  __ _____ (_)/ /_ __  __   /_  __/____   ____   / // //_/ (_)/ /_'
 echo '  / /_   / // ___// _ \ / /_ / __ \ | |/_/   \__ \ / _ \ / ___// / / // ___// // __// / / /    / /  / __ \ / __ \ / // ,<   / // __/'
 echo ' / __/  / // /   /  __// __// /_/ /_>  <    ___/ //  __// /__ / /_/ // /   / // /_ / /_/ /    / /  / /_/ // /_/ // // /| | / // /_  '
 echo '/_/    /_//_/    \___//_/   \____//_/|_|   /____/ \___/ \___/ \__,_//_/   /_/ \__/ \__, /    /_/   \____/ \____//_//_/ |_|/_/ \__/  '
 echo '                                                                                  /____/                                            '
-echo "  _               __  __           _            _    _                        _  "
-echo " | |__  _   _ _  |  \/  | __ _ ___(_)_ __      / \  | |__  _ __ ___   ___  __| | "
-echo " | '_ \| | | (_) | |\/| |/ _\` |_  / | '_ \    / _ \ | '_ \| '_ \` _ \ / _ \/ _\` | "
-echo " | |_) | |_| |_  | |  | | (_| |/ /| | | | |  / ___ \| | | | | | | | |  __/ (_| | "
-echo " |_.__/ \__, (_) |_|  |_|\__,_/___|_|_| |_| /_/   \_\_| |_|_| |_| |_|\___|\__,_| "
-echo "        |___/                                                                    "
-echo "v0.7"
-echo "www.mazinahmed.net"
-echo "twitter.com/mazen160"
+echo "__________                _____ __________ _________  ___________ "
+echo "\______   \ ___.__.      /  |  |\______   \\_   ___ \ \_   _____/ "
+echo " |    |  _/<   |  |     /   |  |_|       _//    \  \/  |    __)_  "
+echo " |    |   \ \___  |    /    ^   /|    |   \\     \____ |        \ "
+echo " |______  / / ____|    \____   | |____|_  / \______  //_______  / "
+echo "        \/  \/              |__|        \/         \/         \/  "
+echo "v0.1"
+echo "github.com/py4rce"
 }
 
 logo
-
 welcome() {
 echo -e "\n\n"
 echo -e "Usage:\n\t"
 echo -e "bash $0 run"
 echo -e "\n"
 echo -e '[%%] Available Add-ons:'
-echo '* Copy PlainText
-* CSRF spotter
-* Disable WebRTC
+echo -e "${RED}* Copy PlainText
+* CSRF Spotter
 * Easy XSS
-* Flagfox
-* FoxyProxy Standard
+* FlagFox
+* FoxyProxy
 * Google Dork Builder
-* HackBar Quantum
-* HackBar V2
-* HackTools
+* Hackbar V2
+* Hackbar Quantum
+* WEB RTC
 * HTTP Header Live
-* iMacros for Firefox
-* JSONView
+* JSON View
 * KNOXSS Community Edition
-* Resurrect Pages
+* Redurrect Pages
 * Shodan.io
-* show-my-ip
-* User-Agent Switcher and Manager
+* User-Agent Switcher and manager
 * Wappalyzer
-* Web Developer
-* XML Viewer Plus
-'
+* WebDeveloper
+* XML ViewerPlus
+* HackTools
+* PostMessageTracker ${NC}
+"
 
 echo '[%%] Additions & Features:'
-echo '* Downloading Burp Suite certificate'
-echo '* Downloading a large user-agent list for User-Agent Switcher'
+echo -e "* Downloading ${ORANGE}Burp Suite certificate ${NC}"
+echo -e "* Downloading a ${RED}large user-agent list for User-Agent Switcher ${NC}"
 echo -e "\n\n"
 echo "[$] Legal Disclaimer: Usage of Firefox Security Toolkit for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program"
 }
@@ -93,17 +93,17 @@ if [[ ! -f "$FIREFOXPATH" ]]; then
   exit 1
 fi
 
-echo "[*] Firefox path: $FIREFOXPATH"
+echo -e "${RED}[*] Firefox path: $FIREFOXPATH ${NC}"
 
 # creating a tmp directory.
 scriptpath=$(mktemp -d)
-echo -e "[*] Created a tmp directory at [$scriptpath]."
+echo -e "${RED}[*] Created a tmp directory at [$scriptpath].${NC}"
 
 # inserting a "Installation is Finished" page into $scriptpath.
 echo '<!DOCTYPE HTML><html><center><head><h1>Installation is Finished</h1></head><body><p><h2>You can close Firefox.</h2><h3><i>Firefox Security Toolkit</i></h3></p></body></center></html>' > "$scriptpath/.installation_finished.html"
 
 # checks whether the user would like to download Burp Suite certificate.
-echo -n "[@] Would you like to download Burp Suite certificate? [y/n]. (Note: Burp Suite should be running in your machine): "; read -r burp_cert_answer
+echo -e "${ORANGE}[@] Would you like to download Burp Suite certificate? [y/n]. (Note: Burp Suite should be running in your machine): ${NC}"; read -r burp_cert_answer
   burp_cert_answer=$(echo -n "$burp_cert_answer" | tr '[:upper:]' '[:lower:]')
   if [[ ( $burp_cert_answer == 'y' ) || ( $burp_cert_answer == 'yes' ) ]];then
     echo -n "[@] Enter Burp Suite proxy listener's port (Default: 8080): "; read -r burp_port
@@ -121,77 +121,73 @@ echo -n "[@] Would you like to download Burp Suite certificate? [y/n]. (Note: Bu
 # downloading packages.
 echo -e "[*] Downloading Add-ons."
 
-# Copy PlainText
-wget "https://addons.mozilla.org/firefox/downloads/file/3420581/copy_plaintext-1.10-fx.xpi" -o /dev/null -O "$scriptpath/copy_plaintext-1.10-fx.xpi"
+# Copy PlainText : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4143512/copy_plaintext-1.15.xpi" -o /dev/null -O "$scriptpath/copy_plaintext-1.xpi"
 
-# CSRF spotter
-wget "https://addons.mozilla.org/firefox/downloads/file/2209785/csrf_spotter-1.0-fx.xpi" -o /dev/null -O "$scriptpath/csrf_spotter-1.0-fx.xpi"
+# CSRF spotter : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/2209785/csrf_spotter-1.0.xpi" -o /dev/null -O "$scriptpath/csrf_spotter-1.0.xpi"
 
-# Easy XSS
+# Easy XSS : OK
 wget "https://addons.mozilla.org/firefox/downloads/file/1158849/easy_xss-1.0-fx.xpi" -o /dev/null -O "$scriptpath/easy_xss-1.0-fx.xpi"
 
-# Flagfox
-wget "https://addons.mozilla.org/firefox/downloads/file/3538268/flagfox-6.1.25-fx.xpi" -o /dev/null -O "$scriptpath/flagfox-6.1.25-fx.xpi"
+# Flagfox: OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4428652/flagfox-6.1.83.xpi" -o /dev/null -O "$scriptpath/flagfox-6.1.83.xpi"
 
-# FoxyProxy Standard
-wget "https://addons.mozilla.org/firefox/downloads/file/3476518/foxyproxy_standard-7.4.3-an+fx.xpi" -o /dev/null -O "$scriptpath/foxyproxy_standard-7.4.3-an+fx.xpi"
+# FoxyProxy Standard: OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4425860/foxyproxy_standard-8.10.xpi" -o /dev/null -O "$scriptpath/foxyproxy_standard-8.10.xpi"
 
-# Google Dork Builder
-wget "https://addons.mozilla.org/firefox/downloads/file/3453468/google_dork_builder-0.6-fx.xpi" -o /dev/null -O "$scriptpath/google_dork_builder-0.6-fx.xpi"
+# Google Dork Builder : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3864393/google_dork_builder-0.9.xpi" -o /dev/null -O "$scriptpath/google_dork_builder-0.9.xpi"
 
-# HackBar V2
-wget "https://addons.mozilla.org/firefox/downloads/file/3450934/hackbar_v2-2.4.1-fx.xpi" -o /dev/null -O "$scriptpath/hackbar_v2-2.4.1-fx.xpi"
+# HackBar V2 : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4399104/hackbar_free-2.5.4.xpi" -o /dev/null -O "$scriptpath//hackbar_free-2.5.4.xpi"
 
-# HackBar Quantum
-wget "https://addons.mozilla.org/firefox/downloads/file/934299/hackbar_quantum-1.6-an+fx.xpi" -o /dev/null -O "$scriptpath/hackbar_quantum-1.6-an+fx.xpi"
+# HackBar Quantum: OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4274533/quantum_hackbar-1.0.2resigned1.xpi" -o /dev/null -O "$scriptpath/quantum_hackbar-1.0.2resigned1.xpi"
 
-# Disable WebRTC
-wget "https://addons.mozilla.org/firefox/downloads/file/3048824/disable_webrtc-1.0.21-an+fx.xpi" -o /dev/null -O "$scriptpath/disable_webrtc-1.0.21-an+fx.xpi"
+# Disable WebRTC : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3551985/happy_bonobo_disable_webrtc-1.0.23.xpi" -o /dev/null -O "$scriptpath/happy_bonobo_disable_webrtc-1.0.23.xpi"
 
-# HTTP Header Live
-wget "https://addons.mozilla.org/firefox/downloads/file/3384326/http_header_live-0.6.5.2-fx.xpi" -o /dev/null -O "$scriptpath/http_header_live-0.6.5.2-fx.xpi"
+# HTTP Header Live:OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3384326/http_header_live-0.6.5.2.xpi" -o /dev/null -O "$scriptpath/http_header_live-0.6.5.2.xpi"
 
-# iMacros for Firefox
-wget "https://addons.mozilla.org/firefox/downloads/file/1010019/imacros_for_firefox-10.0.2.1450-an+fx-linux.xpi" -o /dev/null -O "$scriptpath/imacros_for_firefox-10.0.2.1450-an+fx-linux.xpi"
+# JSONView : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4419512/jsonview-3.1.0.xpi" -o /dev/null -O "$scriptpath/jsonview-3.1.0.xpi"
 
-# JSONView
-wget "https://addons.mozilla.org/firefox/downloads/file/1713269/jsonview-2.1.0-fx.xpi" -o /dev/null -O "$scriptpath/jsonview-2.1.0-fx.xpi"
+# KNOXSS Community Edition : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3378216/knoxss_community_edition-0.2.0.xpi" -o /dev/null -O "$scriptpath/knoxss_community_edition-0.2.0.xpi"
 
-# KNOXSS Community Edition
-wget "https://addons.mozilla.org/firefox/downloads/file/3378216/knoxss_community_edition-0.2.0-fx.xpi" -o /dev/null -O "$scriptpath/knoxss_community_edition-0.2.0-fx.xpi"
+# Resurrect Pages: OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3640440/resurrect_pages-8.xpi" -o /dev/null -O "$scriptpath/resurrect_pages-8.xpi"
 
-# Resurrect Pages
-wget "https://addons.mozilla.org/firefox/downloads/file/926958/resurrect_pages-7-an+fx.xpi" -o /dev/null -O "$scriptpath/resurrect_pages-7-an+fx.xpi"
+# Shodan.io: OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4117305/shodan_addon-1.1.1.xpi" -o /dev/null -O "$scriptpath/shodan_addon-1.1.1.xpi"
 
-# Shodan.io
-wget "https://addons.mozilla.org/firefox/downloads/file/788781/shodanio-0.3.2-an+fx.xpi" -o /dev/null -O "$scriptpath/shodanio-0.3.2-an+fx.xpi"
+# User-Agent Switcher and Manager: OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4098688/user_agent_string_switcher-0.5.0.xpi" -o /dev/null -O "$scriptpath/user_agent_string_switcher-0.5.0.xpi"
 
-# show-my-ip
-wget "https://addons.mozilla.org/firefox/downloads/file/3458407/show_my_ip-1.5-fx.xpi" -o /dev/null -O "$scriptpath/show_my_ip-1.5-fx.xpi"
+# Wappalyzer : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4431384/wappalyzer-6.10.79.xpi" -o /dev/null -O "$scriptpath/wappalyzer-6.10.79.xpi"
 
-# User-Agent Switcher and Manager
-wget "https://addons.mozilla.org/firefox/downloads/file/3527040/user_agent_switcher_and_manager-0.3.5-an+fx.xpi" -o /dev/null -O "$scriptpath/user_agent_switcher_and_manager-0.3.5-an+fx.xpi"
+# Web Developer : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4306323/web_developer-3.0.1.xpi" -o /dev/null -O "$scriptpath/web_developer-3.0.1.xpi"
 
-# Wappalyzer
-wget "https://addons.mozilla.org/firefox/downloads/file/3539068/wappalyzer-5.9.30-fx.xpi" -o /dev/null -O "$scriptpath/wappalyzer-5.9.30-fx.xpi"
+# XML Viewer Plus : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3032172/xml_viewer-1.2.6.xpi" -o /dev/null -O "$scriptpath/xml_viewer-1.2.6.xpi"
 
-# Web Developer
-wget "https://addons.mozilla.org/firefox/downloads/file/3484096/web_developer-2.0.5-an+fx.xpi" -o /dev/null -O "$scriptpath/web_developer-2.0.5-an+fx.xpi"
+# HackTools : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3901885/hacktools-0.4.0.xpi" -o /dev/null -O "$scriptpath/hacktools-0.3.2-fx.xpi"
 
-# XML Viewer Plus
-wget "https://addons.mozilla.org/firefox/downloads/file/3032172/xml_viewer_plus-1.2.6-an+fx.xpi" -o /dev/null -O "$scriptpath/xml_viewer_plus-1.2.6-an+fx.xpi"
-
-# HackTools
-wget "https://addons.mozilla.org/firefox/downloads/file/3707062/hacktools-0.3.2-fx.xpi" -o /dev/null -O "$scriptpath/hacktools-0.3.2-fx.xpi"
-
+# Post message Tracker : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4226437/postmessage_tracker_f-1.1.2.xpi" -o /dev/null -O "$scriptpath/postmessage_tracker_f-1.1.2.xpi"
 
 # checks whether to download user-agent list for User-Agent Switcher add-on.
-echo -n "[@] Would you like to download user-agent list for User-Agent Switcher add-on? [y/n]: "; read -r useragent_list_answer
-  useragent_list_answer=$(echo -n "$useragent_list_answer" | tr '[:upper:]' '[:lower:]')
-  if [[ ( $useragent_list_answer == 'y' ) || ( $useragent_list_answer == 'yes' ) ]]; then
-    wget 'https://techpatterns.com/downloads/firefox/useragentswitcher.xml' -o /dev/null -O "$scriptpath/useragentswitcher.xml"
-    echo -e "[*]Additional user-agents has been downloaded for \"User-Agent Switcher\" add-on, you can import it manually. It can be found at: [$scriptpath/useragentswitcher.xml]."
-  fi
+#echo -n "[@] Would you like to download user-agent list for User-Agent Switcher add-on? [y/n]: "; read -r useragent_list_answer
+#  useragent_list_answer=$(echo -n "$useragent_list_answer" | tr '[:upper:]' '[:lower:]')
+#  if [[ ( $useragent_list_answer == 'y' ) || ( $useragent_list_answer == 'yes' ) ]]; then
+#    wget 'https://techpatterns.com/downloads/firefox/useragentswitcher.xml' -o /dev/null -O "$scriptpath/useragentswitcher.xml"
+#    echo -e "[*]Additional user-agents has been downloaded for \"User-Agent Switcher\" add-on, you can import it manually. It can be found at: [$scriptpath/useragentswitcher.xml]."
+#  fi
 
 # messages.
 echo -e "[*] Downloading add-ons completed.\n";
@@ -216,6 +212,6 @@ done
 # in case you need to delete the tmp directory, uncomment the following line.
 #rm -rf "$scriptpath"; echo -e "[*]Deleted the tmp directory."
 echo -e "[**] Firefox Security Toolkit is finished\n"
-echo -e "Have a nice day! - Mazin Ahmed"
+echo -e "Have a nice day! "
 
 # END #
