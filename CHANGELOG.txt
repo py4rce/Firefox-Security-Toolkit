@@ -11,6 +11,7 @@
 
 
 ## Changelog:-
+* v0.8:  Replaced unsupported addons with functional alternatives. Added new addons.
 * v0.7:
          Major update to all addons. Removed all unsupported addons as of Firefox v74. Replaced unsupported addons with functional alternatives. Added new addons.
          Thanks to @DenverDaveH for reporting the issues.
