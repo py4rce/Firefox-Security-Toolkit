@@ -1,6 +1,7 @@
 *Firefox Security Toolkit*
 ====================
 ### A tool that transforms Firefox browsers into a penetration testing suite ###
+![dasboard image](https://raw.githubusercontent.com/py4rce/Firefox-Security-Toolkit/refs/heads/master/dashboard.png)
 
 
 # How? #
