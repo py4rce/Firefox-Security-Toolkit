@@ -62,3 +62,4 @@ The project is licensed under MIT License.
 # **Author** #
 * Website: [https://py4rce.github.io/](https://py4rce.github.io/)
 * Linkedin: [https://www.linkedin.com/in/jose-francisco-arce-gonzalez](https://www.linkedin.com/in/jose-francisco-arce-gonzalez)
+* Inspired from : https://github.com/mazen160/Firefox-Security-Toolkit 
