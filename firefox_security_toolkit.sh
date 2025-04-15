@@ -41,6 +41,10 @@ echo -e "bash $0 run"
 echo -e "\n"
 echo -e '[%%] Available Add-ons:'
 echo -e "${RED}* Copy PlainText
+* Link Gopher
+* Copy All Tab URL
+* SNAP Links
+* Open multiple Links
 * CSRF Spotter
 * Easy XSS
 * FlagFox
@@ -121,6 +125,16 @@ echo -e "${ORANGE}[@] Would you like to download Burp Suite certificate? [y/n]. 
 # downloading packages.
 echo -e "[*] Downloading Add-ons."
 
+# Link Gopher : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4183832/link_gopher-2.6.2.xpi" -o /dev/null -O "$scriptpath/link_gopher-2.6.2.xpi"
+
+#  Copy All Tab URL : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/3988710/copy_all_tab_urls_we-2.2.0.xpi" -o /dev/null -O "$scriptpath/copy_all_tab_urls_we-2.2.0.xpi"
+#  SNAP Links : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4393740/snaplinksplus-3.1.15.xpi" -o /dev/null -O "$scriptpath/snaplinksplus-3.1.15.xpi"
+#  Open multiple Links : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4444103/open_multiple_urls-1.7.4.xpi" -o /dev/null -O "$scriptpath/open_multiple_urls-1.7.4.xpi"
+
 # Copy PlainText : OK
 wget "https://addons.mozilla.org/firefox/downloads/file/4143512/copy_plaintext-1.15.xpi" -o /dev/null -O "$scriptpath/copy_plaintext-1.xpi"
 
@@ -180,6 +194,23 @@ wget "https://addons.mozilla.org/firefox/downloads/file/3901885/hacktools-0.4.0.
 
 # Post message Tracker : OK
 wget "https://addons.mozilla.org/firefox/downloads/file/4226437/postmessage_tracker_f-1.1.2.xpi" -o /dev/null -O "$scriptpath/postmessage_tracker_f-1.1.2.xpi"
+
+echo -n "[@] Would you like to download my daily extensions that I personally use? [y/n]: "; read -r daily_use_answer
+ 
+  if [[ ( $daily_use_answer == 'y' )  ]; then
+    wget 'https://addons.mozilla.org/firefox/downloads/file/4439735/darkreader-4.9.103.xpi' -o /dev/null -O "$scriptpath/darkreader-4.9.103.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/3449086/df_youtube-1.13.504.xpi' -o /dev/null -O "$scriptpath/df_youtube-1.13.504.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/4355970/multi_account_containers-8.2.0.xpi' -o /dev/null -O "$scriptpath/multi_account_containers-8.2.0.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/4465106/jump_cutter-1.30.0.xpi' -o /dev/null -O "$scriptpath/jump_cutter-1.30.0.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/4455681/traduzir_paginas_web-10.1.1.1.xpi' -o /dev/null -O "$scriptpath/traduzir_paginas_web-10.1.1.1.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/4458679/vimium_ff-2.2.1.xpi' -o /dev/null -O "$scriptpath/vimium_ff-2.2.1.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/4467365/doqment-1.0.1.xpi' -o /dev/null -O "$scriptpath/doqment-1.0.1.xpi"
+    wget 'https://addons.mozilla.org/firefox/downloads/file/3940751/tabliss-2.6.0.xpi' -o /dev/null -O "$scriptpath/tabliss-2.6.0.xpi"
+ 
+    
+    echo -e "[*]Additional extensions has been installed."
+  fi
+
 
 # checks whether to download user-agent list for User-Agent Switcher add-on.
 #echo -n "[@] Would you like to download user-agent list for User-Agent Switcher add-on? [y/n]: "; read -r useragent_list_answer
