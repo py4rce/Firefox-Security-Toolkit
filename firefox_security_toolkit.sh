@@ -125,6 +125,10 @@ echo -e "${ORANGE}[@] Would you like to download Burp Suite certificate? [y/n]. 
 # downloading packages.
 echo -e "[*] Downloading Add-ons."
 
+#Web Developer : OK
+wget "https://addons.mozilla.org/firefox/downloads/file/4306323/web_developer-3.0.1.xpi" -o /dev/null -O "$scriptpath/web_developer-3.0.1.xpi"
+
+
 # Link Gopher : OK
 wget "https://addons.mozilla.org/firefox/downloads/file/4183832/link_gopher-2.6.2.xpi" -o /dev/null -O "$scriptpath/link_gopher-2.6.2.xpi"
 
